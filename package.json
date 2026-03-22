@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "postinstall": "node scripts/patch-opennext.mjs",
-    "cf:build": "opennextjs-cloudflare build && cp -r .open-next/assets/. .open-next/ && cp .open-next/worker.js .open-next/_worker.js",
+    "cf:build": "opennextjs-cloudflare build && cp -r .open-next/assets/. .open-next/ && mkdir -p .open-next/cdn-cgi/_next_cache && cp -r .open-next/cache/. .open-next/cdn-cgi/_next_cache/ && cp .open-next/worker.js .open-next/_worker.js",
     "deploy": "opennextjs-cloudflare build && wrangler deploy",
     "preview": "opennextjs-cloudflare build && wrangler dev",
     "lint": "eslint"
