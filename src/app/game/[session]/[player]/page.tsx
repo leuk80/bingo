@@ -29,7 +29,7 @@ export default function PlayerBoardPage({ params }: PageProps) {
           setNotFound(true);
           return;
         }
-        const data = await res.json();
+        const data = await res.json() as { player: PlayerBoard };
         setPlayerData(data.player);
 
         // Show win modal if already won

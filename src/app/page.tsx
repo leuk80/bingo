@@ -62,14 +62,14 @@ export default function HomePage() {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json() as { error?: string; adminToken?: string };
       if (!res.ok) {
-        setCreateError(data.error);
+        setCreateError(data.error ?? 'Unbekannter Fehler');
         return;
       }
 
       // Save admin token in localStorage
-      localStorage.setItem(`adminToken:${sessionName}`, data.adminToken);
+      localStorage.setItem(`adminToken:${sessionName}`, data.adminToken ?? '');
       router.push(`/game/${sessionName}`);
     } catch {
       setCreateError('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');

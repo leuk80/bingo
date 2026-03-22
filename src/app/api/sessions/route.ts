@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { nanoid } from 'nanoid';
 import { getSession, saveSession } from '@/lib/storage';
@@ -10,7 +12,14 @@ function isValidName(name: string): boolean {
 
 // POST /api/sessions – create a new game session
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const body = await req.json() as {
+    name?: string;
+    title?: string;
+    words?: string[];
+    template?: string;
+    freeCenter?: boolean;
+    description?: string;
+  };
   const { name, title, words, template, freeCenter, description } = body;
 
   if (!name || !isValidName(name)) {

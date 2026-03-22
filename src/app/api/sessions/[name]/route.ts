@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, saveSession } from '@/lib/storage';
 
@@ -35,7 +37,13 @@ export async function PUT(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const body = await req.json();
+  const body = await req.json() as {
+    title?: string;
+    description?: string;
+    words?: string[];
+    freeCenter?: boolean;
+    isActive?: boolean;
+  };
   const { title, description, words, freeCenter, isActive } = body;
 
   if (title !== undefined) session.title = title.trim();

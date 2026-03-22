@@ -46,11 +46,11 @@ export default function SessionLobbyPage({ params }: PageProps) {
           return;
         }
 
-        const sessionJson = await sessionRes.json();
+        const sessionJson = await sessionRes.json() as { session: GameSession };
         setSessionData(sessionJson.session);
 
         if (playersRes.ok) {
-          const playersJson = await playersRes.json();
+          const playersJson = await playersRes.json() as { players: Partial<PlayerBoard>[] };
           setPlayers(playersJson.players);
         }
       } finally {
@@ -80,9 +80,9 @@ export default function SessionLobbyPage({ params }: PageProps) {
         body: JSON.stringify({ playerName: name }),
       });
 
-      const data = await res.json();
+      const data = await res.json() as { error?: string };
       if (!res.ok) {
-        setJoinError(data.error);
+        setJoinError(data.error ?? 'Fehler beim Beitreten');
         return;
       }
 

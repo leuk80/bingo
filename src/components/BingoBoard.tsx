@@ -31,7 +31,7 @@ export default function BingoBoard({ player: initialPlayer, sessionName, onWin }
             body: JSON.stringify({ row, col }),
           }
         );
-        const data = await res.json();
+        const data = await res.json() as { player: PlayerBoard; win: WinResult };
         if (res.ok) {
           setPlayer(data.player);
           setWin(data.win);

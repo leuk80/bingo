@@ -50,8 +50,8 @@ export default function AdminPage({ params }: PageProps) {
           return;
         }
 
-        const sessionJson = await sessionRes.json();
-        const s = sessionJson.session as GameSession;
+        const sessionJson = await sessionRes.json() as { session: GameSession };
+        const s = sessionJson.session;
         setSession(s);
         setEditTitle(s.title);
         setEditDescription(s.description || '');
@@ -60,7 +60,7 @@ export default function AdminPage({ params }: PageProps) {
         setEditActive(s.isActive);
 
         if (playersRes.ok) {
-          const playersJson = await playersRes.json();
+          const playersJson = await playersRes.json() as { players: Partial<PlayerBoard>[] };
           setPlayers(playersJson.players);
         }
       } finally {
@@ -94,11 +94,11 @@ export default function AdminPage({ params }: PageProps) {
         }),
       });
 
-      const data = await res.json();
+      const data = await res.json() as { error?: string; session?: GameSession };
       if (!res.ok) {
         setSaveMsg('Fehler: ' + data.error);
       } else {
-        setSession(data.session);
+        setSession(data.session ?? null);
         setSaveMsg('Gespeichert!');
         setTimeout(() => setSaveMsg(''), 3000);
       }

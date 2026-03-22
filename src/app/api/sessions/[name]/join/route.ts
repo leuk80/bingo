@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, getPlayer, savePlayer } from '@/lib/storage';
 import { createPlayerBoard } from '@/lib/bingo';
@@ -18,7 +20,7 @@ export async function POST(
     return NextResponse.json({ error: 'This game session is no longer active' }, { status: 403 });
   }
 
-  const body = await req.json();
+  const body = await req.json() as { playerName?: string };
   const playerName = body.playerName?.trim();
 
   if (!playerName || playerName.length < 1 || playerName.length > 30) {

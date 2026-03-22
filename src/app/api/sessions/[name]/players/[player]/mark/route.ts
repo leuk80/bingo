@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getPlayer, savePlayer } from '@/lib/storage';
 import { checkWin } from '@/lib/bingo';
@@ -14,7 +16,7 @@ export async function POST(
     return NextResponse.json({ error: 'Player not found' }, { status: 404 });
   }
 
-  const body = await req.json();
+  const body = await req.json() as { row: unknown; col: unknown };
   const { row, col } = body;
 
   if (
