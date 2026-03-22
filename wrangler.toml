@@ -3,8 +3,6 @@ pages_build_output_dir = ".open-next"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
-[[kv_namespaces]]
-binding = "BINGO_KV"
-# After running: npx wrangler kv namespace create BINGO_KV
-id = "REPLACE_WITH_PRODUCTION_KV_ID"
-preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+# KV-Binding über Cloudflare Pages Dashboard konfigurieren:
+# Settings → Functions → KV namespace bindings → Variable name: BINGO_KV
+# Bis dahin läuft die App mit In-Memory-Fallback (Daten gehen bei Restart verloren).
